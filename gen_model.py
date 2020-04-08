@@ -42,7 +42,7 @@ def gen_roose(rain,iter,port):
     rain_no=s1.split('.')[0]
     working_dir="../Rain_G_{}/".format(rain_no)
 
-    print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
+    print('running shell script for running {0} for rainfall {1} on ROOSECatsle using port {2}'.format(iter,rain,port))
     time.sleep(2)
 
     print('starting comsol server on ROOSE castle in background, waiting 30s for it it start up...')
@@ -52,11 +52,11 @@ def gen_roose(rain,iter,port):
 
     print('running iterate {} with matlab'.format(iter))
     if iter=='iter1':
-        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt1(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt1(\'{1}\',\'roose\',{2}); exit\"".format(working_dir,rain,port))
     elif iter=='iter2':
-        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt2(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt2(\'{1}\',\'roose\',{2}); exit\"".format(working_dir,rain,port))
     elif iter=='all':
-        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_all(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_all(\'{1}\',\'roose\',{2}); exit\"".format(working_dir,rain,port))
     else:
         raise Exception('iter should be either the strings iter1 iter2 or all')
 
