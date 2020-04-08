@@ -8,18 +8,77 @@ def gen_local(rain,iter,port):
 
 
 def gen_duncan(rain,iter,port):
-    print('generating shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
-    print("copying {} from ./Rainfall/...".format(rain))
-    time.sleep(1.5)
-    os.system("cp ./Rainfall/{} ./".format(rain)) #copy the correct rainfall data
-    os.system()
+
+    s1=rain.split('_')[1]
+    rain_no=s1.split('.')[0]
+    working_dir="../Rain_G_{}/".format(rain_no)
+
+    print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
+    time.sleep(2)
+
+    print('starting comsol server on duncan castle in background, waiting 30s for it it start up...')
+    cs=os.spawnl(os.P_DETACH,['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
+    time.sleep(30)
+
+
+    print('running iterate {} with matlab'.format(iter))
+    if iter=='iter1':
+        os.system('matlab -nodisplay -r "cd({0}); iterate_opt1({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+    elif iter=='iter2':
+        os.system('matlab -nodisplay -r "cd({0}); iterate_opt2({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+    elif iter=='all':
+        os.system('matlab -nodisplay -r "cd({0}); iterate_all({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+    else:
+        raise Exception('iter should be either the strings iter1 iter2 or all')
+
+
+
 
 def gen_script(rain,iter,computer,port):
     #all args are stings except port
-    print(rain)
-    print(iter)
-    print(type(computer))
-    print(type(port))
+
+
+    #first copy the files:
+
+    s1=rain.split('_')[1]
+    rain_no=s1.split('.')[0]
+
+    print('making directory called ../Rain_G_{}/ to store files in'.format(rain_no))
+    working_dir="../Rain_G_{}/".format(rain_no)
+    os.system("mkdir ../Rain_G_{}".format(rain_no))
+    time.sleep(2)
+
+
+
+    print("copying {} from ./Rainfall/... into {}".format(rain,working_dir))
+    os.system("cp ./Rainfall/{} ".format(rain) + working_dir) #copy the correct rainfall data
+    time.sleep(2)
+    
+    print("copying matlab files into working dir: ".format(working_dir))
+    os.system("cp ./cost_fun.m "+working_dir)
+    os.system("cp ./Superblob3_RLD_Rain_1.m "+working_dir)
+    if iter=='iter1':
+        os.system("cp ./iterate_opt1.m "+working_dir)
+    elif iter=='iter2':
+        os.system("cp ./iterate_opt2.m "+working_dir)
+    elif iter =='all':
+        os.system("cp ./iterate_all.m "+working_dir)
+    else:
+        raise Exception('iter should be either the strings iter1 iter2 or all')
+
+    time.sleep(2)
+
+    
+
+    if computer=='duncan':
+        gen_duncan(rain,iter,port)
+    elif computer=='roose':
+        print('to do')
+    elif computer==local:
+        print('to do')
+    elif computer==iridis:
+        print('to do')
+
 
 
 
@@ -33,6 +92,6 @@ if __name__=="__main__":
     
 
     #gen_script(sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]))
-    gen_duncan(sys.argv[1],sys.argv[2],int(sys.argv[4]))
+    gen_script(sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]))
 
 
