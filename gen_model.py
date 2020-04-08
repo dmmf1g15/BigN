@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import subprocess
 
 
 def gen_local(rain,iter,port):
@@ -17,7 +18,7 @@ def gen_duncan(rain,iter,port):
     time.sleep(2)
 
     print('starting comsol server on duncan castle in background, waiting 30s for it it start up...')
-    cs=os.spawnl(os.P_DETACH,['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
+    cs=subprocess.Popen(['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
     time.sleep(30)
 
 
