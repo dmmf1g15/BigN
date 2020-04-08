@@ -19,16 +19,16 @@ def gen_duncan(rain,iter,port):
 
     print('starting comsol server on duncan castle in background, waiting 30s for it it start up...')
     cs=subprocess.Popen(['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
-    time.sleep(30)
+    time.sleep(10)
 
 
     print('running iterate {} with matlab'.format(iter))
     if iter=='iter1':
-        os.system('matlab -nodisplay -r "cd({0}); iterate_opt1({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt1(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
     elif iter=='iter2':
-        os.system('matlab -nodisplay -r "cd({0}); iterate_opt2({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt2(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
     elif iter=='all':
-        os.system('matlab -nodisplay -r "cd({0}); iterate_all({1},duncan,{2}); exit"'.format(working_dir,rain,port))
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_all(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
     else:
         raise Exception('iter should be either the strings iter1 iter2 or all')
 
