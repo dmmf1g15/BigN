@@ -17,7 +17,7 @@ def gen_duncan(rain,iter,port):
     print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
     time.sleep(2)
 
-    print('starting comsol server on duncan castle in background, waiting 30s for it it start up...')
+    print('starting comsol server on DUNCAN castle in background, waiting 30s for it it start up...')
     cs=subprocess.Popen(['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
     time.sleep(10)
 
@@ -32,6 +32,33 @@ def gen_duncan(rain,iter,port):
     else:
         raise Exception('iter should be either the strings iter1 iter2 or all')
 
+
+
+
+
+def gen_roose(rain,iter,port):
+
+    s1=rain.split('_')[1]
+    rain_no=s1.split('.')[0]
+    working_dir="../Rain_G_{}/".format(rain_no)
+
+    print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
+    time.sleep(2)
+
+    print('starting comsol server on ROOSE castle in background, waiting 30s for it it start up...')
+    cs=subprocess.Popen(['comsol-5.4.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
+    time.sleep(10)
+
+
+    print('running iterate {} with matlab'.format(iter))
+    if iter=='iter1':
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt1(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+    elif iter=='iter2':
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_opt2(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+    elif iter=='all':
+        os.system("matlab -nodisplay -r \"cd(\'{0}\'); iterate_all(\'{1}\',\'duncan\',{2}); exit\"".format(working_dir,rain,port))
+    else:
+        raise Exception('iter should be either the strings iter1 iter2 or all')
 
 
 
@@ -74,7 +101,7 @@ def gen_script(rain,iter,computer,port):
     if computer=='duncan':
         gen_duncan(rain,iter,port)
     elif computer=='roose':
-        print('to do')
+        gen_roose(rain,iter,port)
     elif computer==local:
         print('to do')
     elif computer==iridis:
