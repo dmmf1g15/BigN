@@ -46,7 +46,7 @@ def gen_roose(rain,iter,port):
     time.sleep(2)
 
     print('starting comsol server on ROOSE castle in background, waiting 30s for it it start up...')
-    cs=subprocess.Popen(['comsol-5.4.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
+    cs=subprocess.Popen(['comsol-5.4.0','server','-nn', '1', '-np', '6', '-silent', '-port',str(port),'&'])
     time.sleep(10)
 
 
