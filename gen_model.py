@@ -33,8 +33,10 @@ def gen_iridis(rain,iter,port):
     "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'duncan\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])
 
     script.close()
-    time.sleep(5)
+    
     print('submitting job to que...')
+    time.sleep(2)
+    os.system("qsub {0}.sh".format(working_dir+iter))
 
 
 
