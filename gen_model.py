@@ -4,16 +4,50 @@ import time
 import subprocess
 
 
+
+def gen_iridis(rain,iter,port):
+    s1=rain.split('_')[1]
+    rain_no=s1.split('.')[0]
+    working_dir="../Rain_G_{}/".format(rain_no)    
+    
+    
+    print('writing shell script to run iterate {0}'.format(iter))
+    time.sleep(2)
+    if iter=='all':
+        mfun='iterate_all'
+        runt='00:61:00:00'
+    elif iter=='iter1':
+        mfun='iterate_opt1'
+        runt='00:30:30:00'
+    elif iter =='iter2':
+        mfun='iterate_opt2'
+        runt='00:30:30:00'
+    else:
+        raise Exception('iter should be either the strings iter1 iter2 or all')
+        
+
+    script=open(working_dir+'{0}.sh'.format(iter),'w+')
+    script.writelines(['#/bin/bash\n','#PBS -l nodes=1:ppn=6\n','#PBS -l walltime={0}\n'.format(runt),'cd $PBS_O_WORKDIR\n',\
+    'module load comsol/5.3a\n','module load matlab/2016b\n','myhosts=\"hosts_job_$PBS_JOBID\"\n','cat  $PBS_NODEFILE | uniq > $myhosts\n',\
+    'comsol server -silent -port {0} &\n'.format(port),'sleep 30\n','echo loaded server\n','cd $PBS_O_WORKDIR\n',\
+    "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'duncan\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])
+
+    script.close()
+    time.sleep(5)
+    print('submitting job to que...')
+
+
+
+
+    
 def gen_local(rain,iter,port):
     print('No script generated, run the appropriate iterate script directly in matlab after opening the comsol server')
 
 
 def gen_duncan(rain,iter,port):
-
     s1=rain.split('_')[1]
     rain_no=s1.split('.')[0]
     working_dir="../Rain_G_{}/".format(rain_no)
-
     print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
     time.sleep(2)
 
@@ -73,7 +107,10 @@ def gen_script(rain,iter,computer,port):
 
     print('making directory called ../Rain_G_{}/ to store files in'.format(rain_no))
     working_dir="../Rain_G_{}/".format(rain_no)
-    os.system("mkdir ../Rain_G_{}".format(rain_no))
+    if os.path.exists(working_dir):
+        print("This rain folder already exists. Assuming you are running iterate1 or iterate 2")
+    else:
+        os.system("mkdir ../Rain_G_{}".format(rain_no))
     time.sleep(2)
 
 
@@ -102,10 +139,10 @@ def gen_script(rain,iter,computer,port):
         gen_duncan(rain,iter,port)
     elif computer=='roose':
         gen_roose(rain,iter,port)
-    elif computer==local:
-        print('to do')
-    elif computer==iridis:
-        print('to do')
+    elif computer=='local':
+        gen_local(rain,iter,port)
+    elif computer=='iridis':
+        gen_iridis(rain,iter,port)
 
 
 
