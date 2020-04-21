@@ -30,7 +30,7 @@ def gen_iridis(rain,iter,port):
     script.writelines(['#/bin/bash\n','#PBS -l nodes=1:ppn=6\n','#PBS -l walltime={0}\n'.format(runt),'cd $PBS_O_WORKDIR\n',\
     'module load comsol/5.3a\n','module load matlab/2016b\n','myhosts=\"hosts_job_$PBS_JOBID\"\n','cat  $PBS_NODEFILE | uniq > $myhosts\n',\
     'comsol server -silent -port {0} &\n'.format(port),'sleep 30\n','echo loaded server\n','cd $PBS_O_WORKDIR\n',\
-    "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'duncan\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])
+    "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'iridis\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])
 
     script.close()
     
