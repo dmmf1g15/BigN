@@ -18,10 +18,10 @@ def gen_iridis(rain,iter,port):
         runt='00:60:00:00'
     elif iter=='iter1':
         mfun='iterate_opt1'
-        runt='00:60:00:00'
+        runt='00:50:00:00'
     elif iter =='iter2':
         mfun='iterate_opt2'
-        runt='00:60:00:00'
+        runt='00:50:00:00'
     else:
         raise Exception('iter should be either the strings iter1 iter2 or all')
         
