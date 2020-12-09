@@ -12,7 +12,7 @@ def gen_iridis(rain,iter,port):
     
     
     print('writing shell script to run iterate {0}'.format(iter))
-    time.sleep(2)
+    time.sleep(0.5)
     if iter=='all':
         mfun='iterate_all'
         runt='00:60:00:00'
@@ -35,7 +35,7 @@ def gen_iridis(rain,iter,port):
     script.close()
     
     print('submitting job to que...')
-    time.sleep(2)
+    time.sleep(0.5)
     os.system("qsub {0}.sh".format(working_dir+iter))
 
 
@@ -51,7 +51,7 @@ def gen_duncan(rain,iter,port):
     rain_no=s1.split('.')[0]
     working_dir="../Rain_G_{}/".format(rain_no)
     print('running shell script for running {0} for rainfall {1} on DuncanCatsle using port {2}'.format(iter,rain,port))
-    time.sleep(2)
+    time.sleep(0.5)
 
     print('starting comsol server on DUNCAN castle in background, waiting 30s for it it start up...')
     cs=subprocess.Popen(['comsol-5.5.0','server','-nn', '1', '-np', '8', '-silent', '-port',str(port),'&'])
@@ -79,7 +79,7 @@ def gen_roose(rain,iter,port):
     working_dir="../Rain_G_{}/".format(rain_no)
 
     print('running shell script for running {0} for rainfall {1} on ROOSECatsle using port {2}'.format(iter,rain,port))
-    time.sleep(2)
+    time.sleep(0.5)
 
     print('starting comsol server on ROOSE castle in background, waiting 30s for it it start up...')
     cs=subprocess.Popen(['comsol-5.4.0','server','-nn', '1', '-np', '6', '-silent', '-port',str(port),'&'])
@@ -113,13 +113,13 @@ def gen_script(rain,iter,computer,port):
         print("This rain folder already exists. Assuming you are running iterate1 or iterate 2")
     else:
         os.system("mkdir ../Rain_G_{}".format(rain_no))
-    time.sleep(2)
+    time.sleep(0.5)
 
 
 
     print("copying {} from ./Rainfall/... into {}".format(rain,working_dir))
     os.system("cp ./Rainfall/{} ".format(rain) + working_dir) #copy the correct rainfall data
-    time.sleep(2)
+    time.sleep(0.5)
     
     print("copying matlab files into working dir: ".format(working_dir))
     os.system("cp ./cost_fun.m "+working_dir)
@@ -133,7 +133,7 @@ def gen_script(rain,iter,computer,port):
     else:
         raise Exception('iter should be either the strings iter1 iter2 or all')
 
-    time.sleep(2)
+    time.sleep(0.5)
 
     
 
