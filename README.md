@@ -14,5 +14,6 @@ How to run guide:
   -This will take a day or two to run. It will generate store_iterate1.mat and store_iterate2.mat
   
 4) See plot_store.m in the repo as an example how to process this data. It can also be processed using python function scipy.io.loadmat
+5) gen_2050.py is an example of how to run multiple years in one script on iridis4
   
   
