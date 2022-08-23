@@ -3,4 +3,4 @@ Requires COMSOL MATLAB and Python to run. Make sure in gen_model.py the correct 
 are being added to the path in matlab.
 
 How to run guide:
-clone this repositry git clone 
+clone this repositry: git clone git@github.com:dmmf1g15/BigN.git
