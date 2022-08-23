@@ -5,7 +5,7 @@ are being added to the path in matlab. Edit this after you pull it to make sure 
 How to run guide:
 1) clone this repositry: >>git clone https://github.com/dmmf1g15/BigN.git
 2) Add your Rainfall data to the Rainfall folder as a txt file. col1: day in second. col2 daily rainfall in mm. Look in rainfall folder for examples
-3) run the gen_model.py function to generate the model and run the model on comsol via matlab. >>python gen_model.py Rain_32.txt all roose 2036 
+3) run the gen_model.py function to generate the model and run the model on comsol via matlab. >>python gen_model.py Rain_32.txt all roose 2036. (Before running make sure you have logged into the comsol server in the past. >>comsol-VERSION server. Give Username and password)
   This will: 
   -copy the relevant matlab functions into a new folder ../Rain_G_32/ (use the name of your Rainfall txt file)
   -the 'all' refers to which days to try fertilising on. 'all' will try every possible day pair with 1.2 day resolution <70days
