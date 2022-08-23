@@ -156,7 +156,8 @@ if __name__=="__main__":
     #sys.argv[2] - iter e.g. iter1, iter2, or all
     #sys.argv[3] - computer iridis, local, duncan or roose
     #sys.argv[4] - comsol port number e.g. 2036
-    
+    #EXAMPLE RUN - TYPE INTO COMMAND LINE: python gen_model.py Rain_32.txt all roose 2036
+                                                                #what rainfall pattern | what fert days| what computer | what port comsol server should start on
 
     #gen_script(sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]))
     gen_script(sys.argv[1],sys.argv[2],sys.argv[3],int(sys.argv[4]))
