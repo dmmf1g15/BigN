@@ -27,7 +27,7 @@ def gen_iridis(rain,iter,port):
         
 
     script=open(working_dir+'{0}.sh'.format(iter),'w+')
-    script.writelines(['#/bin/bash\n','#PBS -l nodes=1:ppn=6\n','#PBS -l walltime={0}\n'.format(runt),'cd $PBS_O_WORKDIR\n',\
+    script.writelines(['#!/bin/bash\n','#PBS -l nodes=1:ppn=6\n','#PBS -l walltime={0}\n'.format(runt),'cd $PBS_O_WORKDIR\n',\
     'module load comsol/5.3a\n','module load matlab/2016b\n','myhosts=\"hosts_job_$PBS_JOBID\"\n','cat  $PBS_NODEFILE | uniq > $myhosts\n',\
     'comsol server -silent -port {0} &\n'.format(port),'sleep 30\n','echo loaded server\n','cd $PBS_O_WORKDIR\n',\
     "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'iridis\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])
@@ -38,9 +38,36 @@ def gen_iridis(rain,iter,port):
     time.sleep(0.5)
     os.system("qsub {0}.sh".format(working_dir+iter))
 
+def gen_iridis5(rain,iter,port):
+    s1=rain.split('_')[1]
+    rain_no=s1.split('.')[0]
+    working_dir="../Rain_G_{}/".format(rain_no) 
+    print('writing shell script to run iterate {0}'.format(iter))
+    time.sleep(0.5)
+    if iter=='all':
+        mfun='iterate_all'
+        runt='60:00:00'
+    elif iter=='iter1':
+        mfun='iterate_opt1'
+        runt='50:00:00'
+    elif iter =='iter2':
+        mfun='iterate_opt2'
+        runt='50:00:00'
+    else:
+        raise Exception('iter should be either the strings iter1 iter2 or all')
+        
 
-
-
+    script=open(working_dir+'{0}.sh'.format(iter),'w+')
+    script.writelines(['#!/bin/bash\n','#SBATCH --nodes=1\n','#SBATCH --tasks-per-node=6\n','#SBATCH --time={0}\n'.format(runt),\
+    'module load comsol/5.5\n','module load matlab/2018b\n',\
+    'comsol server -silent -port {0} &\n'.format(port),'sleep 30\n','echo loaded server\n',\
+    "matlab -nodisplay -r \"addpath(\'/local/software/comsol/5.5/multiphysics/mli\'); cd(\'{0}\'); {1}(\'{2}\',\'iridis\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])  
+    
+    script.close()
+    
+    print('submitting job to que...')
+    time.sleep(0.5)
+    os.system("qsub {0}.sh".format(working_dir+iter))
     
 def gen_local(rain,iter,port):
     print('No script generated, run the appropriate iterate script directly in matlab after opening the comsol server')
@@ -145,6 +172,8 @@ def gen_script(rain,iter,computer,port):
         gen_local(rain,iter,port)
     elif computer=='iridis':
         gen_iridis(rain,iter,port)
+    elif computer=='iridis5':
+        gen_iridis5(rain,iter,port)
 
 
 
