@@ -24,7 +24,13 @@ How to run guide:
 	
 		comsol-5.4.0 server
 
-	if using iridis use an interactive session to sign into comsol server
+	if using iridis or iridis5 use an interactive session to sign into comsol server. e.g. for iridis5
+		>>sinteracitve
+		>> module load comsol/5.5
+		>> comsol server
+	enter username and password when prompted
+		>>exit #to exit interacrive session
+	now gen_model can be used
 	
 5. Put in your university username and password
 
