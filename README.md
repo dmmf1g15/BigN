@@ -42,7 +42,7 @@ How to run guide:
 
 	XX is the rainfall pattern number, 
 	YY is iter1/iter2/all
-	ZZ is the machine roosecastle/duncancastle/iridis
+	ZZ is the machine roosecastle/duncancastle/iridis/iridis5
 	AAAA is the server port number usually 2036
 
 For example, if you're on roose castle and you want to run the Rain_32, you would enter:
@@ -51,11 +51,11 @@ For example, if you're on roose castle and you want to run the Rain_32, you woul
 
 After running this, the program will copy the relevant matlab functions into a new folder ../Rain_G_32/ (use the name of your Rainfall txt file)
 	
-Note: this will take a day or two to run. It will generate store_iterate1.mat and store_iterate2.mat, which are data for the uptake for given fertilisation dates
+Note: this will take a day or two to run. It will generate store_iterate1.mat and store_iterate2.mat, which are data for the uptake for given fertilisation dates. If running the simulations on iridis5 it is possible to change the wall-time requested and the processes per-node in the gen_iridis5() function in gen_model.py. Once you have run one year and have an idea of how long it takes adjust the wall-time appropiatley.
 
 9. See plot_store.m in the repo as an example how to process this data. It can also be processed using python function scipy.io.loadmat
     
-10. gen_2050.py is an example of how to run multiple years in one script on iridis4
+10. gen_2050.py is an example of how to run multiple years in one script on iridis4 or iridis5
 
 
   
