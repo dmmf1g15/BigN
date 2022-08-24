@@ -67,7 +67,7 @@ def gen_iridis5(rain,iter,port):
     
     print('submitting job to que...')
     time.sleep(0.5)
-    os.system("qsub {0}.sh".format(working_dir+iter))
+    os.system("sbatch {0}.sh".format(working_dir+iter))
     
 def gen_local(rain,iter,port):
     print('No script generated, run the appropriate iterate script directly in matlab after opening the comsol server')
