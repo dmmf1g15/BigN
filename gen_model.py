@@ -61,7 +61,7 @@ def gen_iridis5(rain,iter,port):
     script.writelines(['#!/bin/bash\n','#SBATCH --nodes=1\n','#SBATCH --tasks-per-node=6\n','#SBATCH --time={0}\n'.format(runt),\
     'module load comsol/5.5\n','module load matlab/2018b\n',\
     'comsol server -silent -port {0} &\n'.format(port),'sleep 30\n','echo loaded server\n',\
-    "matlab -nodisplay -r \"addpath(\'/local/software/comsol/5.5/multiphysics/mli\'); cd(\'{0}\'); {1}(\'{2}\',\'iridis\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])  
+    "matlab -nodisplay -r \"cd(\'{0}\'); {1}(\'{2}\',\'iridis5\',{3}); exit\" > {4}.log".format(working_dir,mfun,rain,port,working_dir+mfun)])  
     
     script.close()
     

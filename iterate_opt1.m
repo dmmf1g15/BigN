@@ -15,6 +15,9 @@ elseif strcmp(computer,'roose')
 elseif strcmp(computer,'iridis')
      disp('running on Iridis... adding comsol mli paths');
      addpath('/local/software/comsol/5.3a/mli');
+elseif strcmp(computer,'iridis5')
+     disp('running on Iridis5... adding comsol mli paths');
+     addpath('/local/software/comsol/5.5/multiphysics/mli');
 else
     error('computer name not valid');
 end
