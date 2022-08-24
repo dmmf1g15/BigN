@@ -42,8 +42,8 @@ How to run guide:
 
 	XX is the rainfall pattern number, 
 	YY is iter1/iter2/all
-	ZZ is the machine roosecastle/duncancastle/iridis/iridis5
-	AAAA is the server port number usually 2036
+	ZZ is the machine roose/duncan/iridis/iridis5/local
+	AAAA is the server port number usually 2036. If busy use 2037, 2038 etc
 
 For example, if you're on roose castle and you want to run the Rain_32, you would enter:
 
