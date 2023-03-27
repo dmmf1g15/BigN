@@ -59,30 +59,32 @@ model.param.set('g', '9.81', 'Gravity m/s^2');
 model.param.set('row', '1000', 'Density kg/m^3');
 
 
-%Root params
-model.param.set('kr', '2.4987e-13', 'kr radial water conductivity_from Tiinas paper');
-model.param.set('Pr', '-2.75e5', 'Root Pressure Pa');
-model.param.set('r0', '2e-7/2', 'Initial Growth Rate');
-model.param.set('Pc', '23200', 'Suction kg/m*s^2');
-model.param.set('K0', '0.5', 'Max Root Length m');
-model.param.set('gamma', '0.5772156649', 'Euler-Maschoroni');
-model.param.set('a0', '5e-4*0+.3e-3', 'Root Radii m');
-model.param.set('Fm', '10e-5', 'Max Uptake');
-model.param.set('Km', '0.025', 'Michaleis Uptake');
-model.param.set('introot', '0.05', 'Initial Root Length m');
-model.param.set('a1', '5e-4/6*0+0.032e-3', 'radius of first order lateral roots [m]');
-model.param.set('K1', '.08', 'Length of lateral[m]');
-model.param.set('beta', 'pi/4', 'branching angle [rad]');
-model.param.set('kz', '1.198e-14', 'Axial first order xylem hydraulic conductivity [m4 s-1 Pa-1]');
-model.param.set('Kd', '60e3/4', 'Maximum root length density [m m-3]');
-model.param.set('rd', '1.2e-2', 'initial root length density rate [m m-3 s-1]');
-model.param.set('ratio', 'Qs/(ks*row*g/mu)');
-
-
 model.param.set('Qs', '3.14e-7', 'Rainfall m/s');
 model.param.set('Qa', '1e-5', 'Nitrogen application kg m^-2 s^-1');
 model.param.set('Df', '2e-9', 'Liquid Diffusion m^2/s');
+model.param.set('ratio', 'Qs/(ks*row*g/mu)');
 
+%Root params
+
+%Measurable 
+model.param.set('r0', '2e-7/2', 'Initial Growth Rate');
+model.param.set('K0', '0.5', 'Max Root Length m');
+model.param.set('a0', '5e-4*0+.3e-3', 'Root Radii m');
+model.param.set('Fm', '10e-5', 'Max Uptake');
+model.param.set('Km', '0.025', 'Michaleis Uptake');
+model.param.set('a1', '5e-4/6*0+0.032e-3', 'radius of first order lateral roots [m]');
+model.param.set('K1', '.08', 'Length of lateral[m]');
+model.param.set('Kd', '60e3/4', 'Maximum root length density [m m-3]');
+model.param.set('rd', '1.2e-2', 'initial root length density rate [m m-3 s-1]');
+
+%Other root
+model.param.set('beta', 'pi/4', 'branching angle [rad]');
+model.param.set('gamma', '0.5772156649', 'Euler-Maschoroni');
+model.param.set('Pr', '-2.75e5', 'Root Pressure Pa');
+model.param.set('Pc', '23200', 'Suction kg/m*s^2');
+model.param.set('introot', '0.05', 'Initial Root Length m');
+model.param.set('kz', '1.198e-14', 'Axial first order xylem hydraulic conductivity [m4 s-1 Pa-1]');
+model.param.set('kr', '2.4987e-13', 'kr radial water conductivity_from Tiinas paper');
 
 model.component.create('comp1', true);
 
